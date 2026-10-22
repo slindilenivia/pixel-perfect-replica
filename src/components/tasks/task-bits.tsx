@@ -1,4 +1,11 @@
-import { CalendarDays, ChevronDown, ChevronRight, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import {
+  CalendarDays,
+  ChevronDown,
+  ChevronRight,
+  MoreHorizontal,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
@@ -12,7 +19,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { formatDue } from "@/lib/dates";
-import { deleteTask, isOverdue, setTaskStatus, type Priority, type Task, type TaskStatus } from "@/lib/tasks";
+import {
+  deleteTask,
+  isOverdue,
+  setTaskStatus,
+  type Priority,
+  type Task,
+  type TaskStatus,
+} from "@/lib/tasks";
 import { Sparkle } from "lucide-react";
 
 const PRIORITY_STYLE: Record<Priority, string> = {
@@ -23,7 +37,12 @@ const PRIORITY_STYLE: Record<Priority, string> = {
 
 export function PriorityPill({ priority }: { priority: Priority }) {
   return (
-    <span className={cn("rounded-full px-2 py-0.5 text-[11px] font-medium capitalize", PRIORITY_STYLE[priority])}>
+    <span
+      className={cn(
+        "rounded-full px-2 py-0.5 text-[11px] font-medium capitalize",
+        PRIORITY_STYLE[priority],
+      )}
+    >
       {priority}
     </span>
   );
@@ -45,7 +64,11 @@ export function DueLabel({ task }: { task: Task }) {
   );
 }
 
-const STATUS_LABEL: Record<TaskStatus, string> = { todo: "To do", in_progress: "In progress", done: "Done" };
+const STATUS_LABEL: Record<TaskStatus, string> = {
+  todo: "To do",
+  in_progress: "In progress",
+  done: "Done",
+};
 
 export function TaskRow({
   task,
@@ -98,7 +121,9 @@ export function TaskRow({
         <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
           {!compact && <PriorityPill priority={task.priority} />}
           <DueLabel task={task} />
-          {task.status === "in_progress" && <span className="text-xs font-medium text-ai">In progress</span>}
+          {task.status === "in_progress" && (
+            <span className="text-xs font-medium text-ai">In progress</span>
+          )}
           {subtaskCount > 0 && (
             <button
               type="button"
@@ -141,7 +166,10 @@ export function TaskRow({
                 </DropdownMenuItem>
               ))}
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={() => deleteTask(task.id)}>
+            <DropdownMenuItem
+              className="text-destructive focus:text-destructive"
+              onClick={() => deleteTask(task.id)}
+            >
               <Trash2 /> Delete
             </DropdownMenuItem>
           </DropdownMenuContent>

@@ -38,13 +38,28 @@ export function describeAiError(error: unknown): { status: number; message: stri
   if (status === 402)
     return {
       status,
-      message: "AI credits have run out for this workspace. Add credits in Lovable to keep using AI features.",
+      message:
+        "AI credits have run out for this workspace. Add credits in Lovable to keep using AI features.",
     };
-  if (status === 429) return { status, message: "Too many AI requests right now. Please wait a moment and try again." };
+  if (status === 429)
+    return {
+      status,
+      message: "Too many AI requests right now. Please wait a moment and try again.",
+    };
   if (status === 403)
-    return { status, message: "AI access is currently blocked for this workspace. A workspace admin can check AI settings." };
-  if (status === 401) return { status, message: "AI is not configured correctly. Please contact the app owner." };
-  if (status === 400) return { status, message: "That request couldn't be processed. Try shortening or rephrasing it." };
-  if (error instanceof Error && error.name === "AbortError") return { status: 499, message: "Stopped." };
+    return {
+      status,
+      message:
+        "AI access is currently blocked for this workspace. A workspace admin can check AI settings.",
+    };
+  if (status === 401)
+    return { status, message: "AI is not configured correctly. Please contact the app owner." };
+  if (status === 400)
+    return {
+      status,
+      message: "That request couldn't be processed. Try shortening or rephrasing it.",
+    };
+  if (error instanceof Error && error.name === "AbortError")
+    return { status: 499, message: "Stopped." };
   return { status, message: "The AI service had a problem. Please try again in a moment." };
 }

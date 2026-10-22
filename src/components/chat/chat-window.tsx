@@ -39,12 +39,18 @@ const SUGGESTIONS = [
   {
     category: "Research",
     icon: BookOpenText,
-    prompts: ["Explain machine learning like I'm new to it", "What are good sources for market research?"],
+    prompts: [
+      "Explain machine learning like I'm new to it",
+      "What are good sources for market research?",
+    ],
   },
   {
     category: "Writing",
     icon: PenLine,
-    prompts: ["Draft a polite follow-up email to a client", "Improve the clarity of this paragraph:"],
+    prompts: [
+      "Draft a polite follow-up email to a client",
+      "Improve the clarity of this paragraph:",
+    ],
   },
   {
     category: "Productivity",
@@ -57,7 +63,13 @@ function textOf(message: UIMessage) {
   return message.parts.map((p) => (p.type === "text" ? p.text : "")).join("");
 }
 
-export function ChatWindow({ threadId, initialPrompt }: { threadId: string; initialPrompt?: string | undefined }) {
+export function ChatWindow({
+  threadId,
+  initialPrompt,
+}: {
+  threadId: string;
+  initialPrompt?: string | undefined;
+}) {
   const navigate = useNavigate();
   const initialMessages = useMemo(
     () => chatStore.read().find((t) => t.id === threadId)?.messages ?? [],
@@ -115,7 +127,10 @@ export function ChatWindow({ threadId, initialPrompt }: { threadId: string; init
     void sendMessage({ text: prompt });
   }
 
-  const lastAssistantIndex = messages.reduce((last, m, i) => (m.role === "assistant" ? i : last), -1);
+  const lastAssistantIndex = messages.reduce(
+    (last, m, i) => (m.role === "assistant" ? i : last),
+    -1,
+  );
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
@@ -143,7 +158,11 @@ export function ChatWindow({ threadId, initialPrompt }: { threadId: string; init
           {error && !busy && (
             <div className="rounded-lg border border-destructive/30 bg-destructive-soft px-3 py-2 text-sm text-destructive">
               {error.message || "Something went wrong."}{" "}
-              <button type="button" className="font-medium underline" onClick={() => void regenerate()}>
+              <button
+                type="button"
+                className="font-medium underline"
+                onClick={() => void regenerate()}
+              >
                 Try again
               </button>
             </div>
@@ -210,7 +229,11 @@ function ChatMessage({
           {message.parts.map((part, i) => {
             if (part.type === "reasoning" && part.text) {
               return (
-                <Reasoning key={i} isStreaming={streaming && part.state === "streaming"} defaultOpen={false}>
+                <Reasoning
+                  key={i}
+                  isStreaming={streaming && part.state === "streaming"}
+                  defaultOpen={false}
+                >
                   <ReasoningTrigger />
                   <ReasoningContent>{part.text}</ReasoningContent>
                 </Reasoning>
@@ -262,7 +285,8 @@ function EmptyState({ onPick }: { onPick: (prompt: string) => void }) {
         <BrandMark className="mx-auto size-14 rounded-2xl shadow-lift" />
         <h2 className="text-2xl font-bold md:text-3xl">What are we working on?</h2>
         <p className="mx-auto max-w-md text-sm text-muted-foreground">
-          Ask anything about planning, research, writing or getting things done. Pick a starter or type your own.
+          Ask anything about planning, research, writing or getting things done. Pick a starter or
+          type your own.
         </p>
       </div>
       <div className="grid w-full gap-3 text-left sm:grid-cols-2">

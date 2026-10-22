@@ -64,12 +64,22 @@ export const useResearch = researchStore.useValue;
 
 export function createProject(title: string, topic: string) {
   const now = new Date().toISOString();
-  const project: ResearchProject = { id: uid(), title, topic, notes: [], createdAt: now, updatedAt: now };
+  const project: ResearchProject = {
+    id: uid(),
+    title,
+    topic,
+    notes: [],
+    createdAt: now,
+    updatedAt: now,
+  };
   researchStore.update((prev) => [project, ...prev]);
   return project;
 }
 
-export function updateProject(id: string, patch: Partial<Pick<ResearchProject, "title" | "topic">>) {
+export function updateProject(
+  id: string,
+  patch: Partial<Pick<ResearchProject, "title" | "topic">>,
+) {
   researchStore.update((prev) =>
     prev.map((p) => (p.id === id ? { ...p, ...patch, updatedAt: new Date().toISOString() } : p)),
   );
@@ -93,7 +103,11 @@ export function updateNote(projectId: string, noteId: string, patch: Partial<Res
   researchStore.update((prev) =>
     prev.map((p) =>
       p.id === projectId
-        ? { ...p, updatedAt: now, notes: p.notes.map((n) => (n.id === noteId ? { ...n, ...patch } : n)) }
+        ? {
+            ...p,
+            updatedAt: now,
+            notes: p.notes.map((n) => (n.id === noteId ? { ...n, ...patch } : n)),
+          }
         : p,
     ),
   );
@@ -101,6 +115,8 @@ export function updateNote(projectId: string, noteId: string, patch: Partial<Res
 
 export function deleteNote(projectId: string, noteId: string) {
   researchStore.update((prev) =>
-    prev.map((p) => (p.id === projectId ? { ...p, notes: p.notes.filter((n) => n.id !== noteId) } : p)),
+    prev.map((p) =>
+      p.id === projectId ? { ...p, notes: p.notes.filter((n) => n.id !== noteId) } : p,
+    ),
   );
 }

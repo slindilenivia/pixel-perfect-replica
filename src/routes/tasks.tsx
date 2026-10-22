@@ -32,7 +32,8 @@ export const Route = createFileRoute("/tasks")({
       { title: "AI Task Planner — Kestrel" },
       {
         name: "description",
-        content: "Create, prioritise and complete tasks, break big goals into steps and generate daily or weekly plans with AI.",
+        content:
+          "Create, prioritise and complete tasks, break big goals into steps and generate daily or weekly plans with AI.",
       },
       { property: "og:title", content: "AI Task Planner — Kestrel" },
       {
@@ -65,11 +66,15 @@ function TasksPage() {
     const topLevel = tasks.filter((t) => !t.parentId);
     switch (filter) {
       case "today":
-        return sortTasks(tasks.filter((t) => t.status !== "done" && (isDueToday(t) || isOverdue(t))));
+        return sortTasks(
+          tasks.filter((t) => t.status !== "done" && (isDueToday(t) || isOverdue(t))),
+        );
       case "upcoming":
         return upcomingTasks(tasks, 14);
       case "done":
-        return tasks.filter((t) => t.status === "done").sort((a, b) => (b.completedAt ?? "").localeCompare(a.completedAt ?? ""));
+        return tasks
+          .filter((t) => t.status === "done")
+          .sort((a, b) => (b.completedAt ?? "").localeCompare(a.completedAt ?? ""));
       default:
         return sortTasks(topLevel);
     }
@@ -139,7 +144,11 @@ function TasksPage() {
                 {(["all", "today", "upcoming", "done"] as const).map((f) => (
                   <TabsTrigger key={f} value={f} className="gap-1.5 capitalize">
                     {f === "done" ? "Completed" : f}
-                    {hydrated && <span className="font-mono text-[10px] text-muted-foreground">{counts[f]}</span>}
+                    {hydrated && (
+                      <span className="font-mono text-[10px] text-muted-foreground">
+                        {counts[f]}
+                      </span>
+                    )}
                   </TabsTrigger>
                 ))}
               </TabsList>
@@ -153,7 +162,9 @@ function TasksPage() {
             <Input
               value={quick}
               onChange={(e) => setQuick(e.target.value)}
-              placeholder={filter === "today" ? "Add a task for today…" : "Add a task and press Enter…"}
+              placeholder={
+                filter === "today" ? "Add a task for today…" : "Add a task and press Enter…"
+              }
               className="border-0 bg-transparent shadow-none focus-visible:ring-0"
               aria-label="New task title"
             />
@@ -192,7 +203,8 @@ function TasksPage() {
                         })
                       }
                     />
-                    {!isCollapsed && subs.map((s) => <TaskRow key={s.id} task={s} onEdit={openEditor} />)}
+                    {!isCollapsed &&
+                      subs.map((s) => <TaskRow key={s.id} task={s} onEdit={openEditor} />)}
                   </div>
                 );
               })

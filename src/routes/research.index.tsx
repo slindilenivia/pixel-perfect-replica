@@ -27,12 +27,14 @@ export const Route = createFileRoute("/research/")({
       { title: "AI Research Assistant — Kestrel" },
       {
         name: "description",
-        content: "Organise research projects, generate outlines and summaries, explain hard topics and find keywords with AI.",
+        content:
+          "Organise research projects, generate outlines and summaries, explain hard topics and find keywords with AI.",
       },
       { property: "og:title", content: "AI Research Assistant — Kestrel" },
       {
         property: "og:description",
-        content: "Generate outlines, summaries, explanations and research questions — with reminders to verify.",
+        content:
+          "Generate outlines, summaries, explanations and research questions — with reminders to verify.",
       },
     ],
   }),
@@ -61,7 +63,8 @@ function ResearchIndex() {
           }
         />
         <VerifyNotice>
-          AI research help is a starting point, not a source. Always confirm facts and find original references before citing.
+          AI research help is a starting point, not a source. Always confirm facts and find original
+          references before citing.
         </VerifyNotice>
 
         {!hydrated ? (
@@ -73,7 +76,9 @@ function ResearchIndex() {
           <div className="rounded-2xl border border-dashed p-10 text-center">
             <BookOpenText className="mx-auto size-8 text-muted-foreground" />
             <p className="mt-3 font-medium">No research projects yet</p>
-            <p className="text-sm text-muted-foreground">Start one to collect AI insights and your own notes.</p>
+            <p className="text-sm text-muted-foreground">
+              Start one to collect AI insights and your own notes.
+            </p>
           </div>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2">
@@ -87,7 +92,9 @@ function ResearchIndex() {
                   className="group flex flex-col gap-3 rounded-2xl border bg-card p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-lift"
                 >
                   <div className="flex items-start justify-between gap-3">
-                    <h2 className="text-lg font-bold leading-tight group-hover:text-primary">{p.title}</h2>
+                    <h2 className="text-lg font-bold leading-tight group-hover:text-primary">
+                      {p.title}
+                    </h2>
                     <BookOpenText className="size-5 shrink-0 text-primary" />
                   </div>
                   <p className="line-clamp-2 text-sm text-muted-foreground">{p.topic}</p>
@@ -115,7 +122,13 @@ function ResearchIndex() {
   );
 }
 
-function NewProjectDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
+function NewProjectDialog({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (o: boolean) => void;
+}) {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [topic, setTopic] = useState("");
@@ -135,7 +148,9 @@ function NewProjectDialog({ open, onOpenChange }: { open: boolean; onOpenChange:
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="font-display text-xl">New research project</DialogTitle>
-          <DialogDescription>Give it a name and the main question you want to answer.</DialogDescription>
+          <DialogDescription>
+            Give it a name and the main question you want to answer.
+          </DialogDescription>
         </DialogHeader>
         <form onSubmit={submit} className="space-y-4">
           <div className="space-y-1.5">

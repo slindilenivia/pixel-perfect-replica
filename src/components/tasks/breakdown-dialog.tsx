@@ -21,7 +21,13 @@ import { addTask, addTasks } from "@/lib/tasks";
 import { offsetKey } from "@/lib/dates";
 import { PriorityPill } from "./task-bits";
 
-export function BreakdownDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
+export function BreakdownDialog({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (o: boolean) => void;
+}) {
   const [goal, setGoal] = useState("");
   const [deadline, setDeadline] = useState("");
   const [loading, setLoading] = useState(false);
@@ -76,7 +82,9 @@ export function BreakdownDialog({ open, onOpenChange }: { open: boolean; onOpenC
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <DialogTitle className="font-display text-xl">Break down a goal</DialogTitle>
-          <DialogDescription>Describe something big. AI will suggest smaller, scheduled steps you can edit.</DialogDescription>
+          <DialogDescription>
+            Describe something big. AI will suggest smaller, scheduled steps you can edit.
+          </DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
           <div className="space-y-1.5">
@@ -91,7 +99,12 @@ export function BreakdownDialog({ open, onOpenChange }: { open: boolean; onOpenC
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="goal-deadline">Deadline (optional)</Label>
-            <Input id="goal-deadline" type="date" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
+            <Input
+              id="goal-deadline"
+              type="date"
+              value={deadline}
+              onChange={(e) => setDeadline(e.target.value)}
+            />
           </div>
 
           {loading && <Shimmer className="text-sm">Breaking it into steps…</Shimmer>}
@@ -101,8 +114,13 @@ export function BreakdownDialog({ open, onOpenChange }: { open: boolean; onOpenC
               <AiBadge />
               <ul className="space-y-1.5">
                 {suggestions.map((s, i) => (
-                  <li key={i} className="flex items-center gap-2 rounded-md bg-card px-2.5 py-2 text-sm shadow-soft">
-                    <span className="font-mono text-[11px] text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
+                  <li
+                    key={i}
+                    className="flex items-center gap-2 rounded-md bg-card px-2.5 py-2 text-sm shadow-soft"
+                  >
+                    <span className="font-mono text-[11px] text-muted-foreground">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                     <span className="flex-1">{s.title}</span>
                     <PriorityPill priority={s.priority} />
                     <span className="w-14 text-right text-xs text-muted-foreground">
@@ -112,14 +130,18 @@ export function BreakdownDialog({ open, onOpenChange }: { open: boolean; onOpenC
                       variant="ghost"
                       size="icon-xs"
                       aria-label="Remove step"
-                      onClick={() => setSuggestions((prev) => prev?.filter((_, j) => j !== i) ?? null)}
+                      onClick={() =>
+                        setSuggestions((prev) => prev?.filter((_, j) => j !== i) ?? null)
+                      }
                     >
                       <X />
                     </Button>
                   </li>
                 ))}
               </ul>
-              <VerifyNotice>Review the steps and dates — you can edit any task after adding it.</VerifyNotice>
+              <VerifyNotice>
+                Review the steps and dates — you can edit any task after adding it.
+              </VerifyNotice>
             </div>
           )}
         </div>

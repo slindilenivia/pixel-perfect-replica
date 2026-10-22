@@ -17,9 +17,16 @@ export const Route = createFileRoute("/chat/$threadId")({
   head: () => ({
     meta: [
       { title: "AI Chat — Kestrel" },
-      { name: "description", content: "Chat with Kestrel's AI assistant about planning, research, writing and productivity." },
+      {
+        name: "description",
+        content:
+          "Chat with Kestrel's AI assistant about planning, research, writing and productivity.",
+      },
       { property: "og:title", content: "AI Chat — Kestrel" },
-      { property: "og:description", content: "Chat with an AI assistant for planning, research, writing and productivity." },
+      {
+        property: "og:description",
+        content: "Chat with an AI assistant for planning, research, writing and productivity.",
+      },
     ],
   }),
   component: ChatPage,
@@ -97,7 +104,11 @@ function ThreadList({ activeId }: { activeId: string }) {
   const navigate = useNavigate();
 
   if (threads.length === 0) {
-    return <p className="px-4 py-6 text-sm text-muted-foreground">Your conversations will appear here.</p>;
+    return (
+      <p className="px-4 py-6 text-sm text-muted-foreground">
+        Your conversations will appear here.
+      </p>
+    );
   }
 
   return (
@@ -107,7 +118,9 @@ function ThreadList({ activeId }: { activeId: string }) {
           key={t.id}
           className={cn(
             "group flex items-center gap-1 rounded-lg pr-1 transition-colors",
-            t.id === activeId ? "bg-sidebar-accent text-sidebar-accent-foreground" : "hover:bg-muted",
+            t.id === activeId
+              ? "bg-sidebar-accent text-sidebar-accent-foreground"
+              : "hover:bg-muted",
           )}
         >
           <Link
@@ -127,7 +140,8 @@ function ThreadList({ activeId }: { activeId: string }) {
             aria-label={`Delete ${t.title}`}
             onClick={() => {
               deleteThread(t.id);
-              if (t.id === activeId) void navigate({ to: "/chat/$threadId", params: { threadId: newThreadId() } });
+              if (t.id === activeId)
+                void navigate({ to: "/chat/$threadId", params: { threadId: newThreadId() } });
             }}
           >
             <Trash2 />

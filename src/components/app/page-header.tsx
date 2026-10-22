@@ -25,7 +25,9 @@ export function PageHeader({
     <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
       <div className="space-y-1">
         {eyebrow && (
-          <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-primary">{eyebrow}</p>
+          <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-primary">
+            {eyebrow}
+          </p>
         )}
         <h1 className="text-3xl font-bold md:text-4xl">{title}</h1>
         {description && <p className="max-w-2xl text-muted-foreground">{description}</p>}

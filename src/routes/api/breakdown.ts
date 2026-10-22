@@ -27,7 +27,8 @@ async function handleBreakdown(request: Request) {
   } catch {
     return Response.json({ error: "Invalid request body" }, { status: 400 });
   }
-  if (!parsed.success) return Response.json({ error: "Describe your goal in a few words first." }, { status: 400 });
+  if (!parsed.success)
+    return Response.json({ error: "Describe your goal in a few words first." }, { status: 400 });
   const { goal, deadline } = parsed.data;
 
   const { model } = createGateway(request);
@@ -50,7 +51,10 @@ async function handleBreakdown(request: Request) {
     return Response.json({ subtasks });
   } catch (error) {
     if (NoObjectGeneratedError.isInstance(error)) {
-      return Response.json({ error: "The AI couldn't structure that goal. Try describing it differently." }, { status: 502 });
+      return Response.json(
+        { error: "The AI couldn't structure that goal. Try describing it differently." },
+        { status: 502 },
+      );
     }
     console.error("breakdown error", error);
     const { status, message } = describeAiError(error);

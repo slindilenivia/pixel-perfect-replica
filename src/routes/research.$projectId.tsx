@@ -62,10 +62,14 @@ export const Route = createFileRoute("/research/$projectId")({
       { title: "Research notebook — Kestrel" },
       {
         name: "description",
-        content: "Generate outlines, summaries, explanations, keywords and research questions, and keep organised notes.",
+        content:
+          "Generate outlines, summaries, explanations, keywords and research questions, and keep organised notes.",
       },
       { property: "og:title", content: "Research notebook — Kestrel" },
-      { property: "og:description", content: "An AI-assisted research notebook with verification reminders." },
+      {
+        property: "og:description",
+        content: "An AI-assisted research notebook with verification reminders.",
+      },
     ],
   }),
   component: ProjectPage,
@@ -73,12 +77,48 @@ export const Route = createFileRoute("/research/$projectId")({
 
 type Tool = Exclude<AssistMode, "daily-plan" | "weekly-plan">;
 
-const TOOLS: Array<{ id: Tool; label: string; icon: typeof ListTree; hint: string; kind: NoteKind }> = [
-  { id: "outline", label: "Outline", icon: ListTree, hint: "A structured outline for the topic", kind: "outline" },
-  { id: "summary", label: "Summary", icon: ScrollText, hint: "What's generally known, key points & debates", kind: "summary" },
-  { id: "explain", label: "Explain", icon: Lightbulb, hint: "Explain a difficult concept simply", kind: "explanation" },
-  { id: "keywords", label: "Keywords", icon: KeyRound, hint: "Search terms and Boolean strings", kind: "keywords" },
-  { id: "questions", label: "Questions", icon: HelpCircle, hint: "Strong research questions to investigate", kind: "questions" },
+const TOOLS: Array<{
+  id: Tool;
+  label: string;
+  icon: typeof ListTree;
+  hint: string;
+  kind: NoteKind;
+}> = [
+  {
+    id: "outline",
+    label: "Outline",
+    icon: ListTree,
+    hint: "A structured outline for the topic",
+    kind: "outline",
+  },
+  {
+    id: "summary",
+    label: "Summary",
+    icon: ScrollText,
+    hint: "What's generally known, key points & debates",
+    kind: "summary",
+  },
+  {
+    id: "explain",
+    label: "Explain",
+    icon: Lightbulb,
+    hint: "Explain a difficult concept simply",
+    kind: "explanation",
+  },
+  {
+    id: "keywords",
+    label: "Keywords",
+    icon: KeyRound,
+    hint: "Search terms and Boolean strings",
+    kind: "keywords",
+  },
+  {
+    id: "questions",
+    label: "Questions",
+    icon: HelpCircle,
+    hint: "Strong research questions to investigate",
+    kind: "questions",
+  },
 ];
 
 function ProjectPage() {
@@ -90,7 +130,10 @@ function ProjectPage() {
   return (
     <>
       <TopBar>
-        <Link to="/research" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+        <Link
+          to="/research"
+          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+        >
           <ArrowLeft className="size-4" /> Research
         </Link>
       </TopBar>
@@ -102,7 +145,9 @@ function ProjectPage() {
       ) : !project ? (
         <div className="mx-auto max-w-md px-4 py-20 text-center">
           <p className="font-display text-2xl font-bold">Project not found</p>
-          <p className="mt-2 text-sm text-muted-foreground">It may have been deleted from this browser.</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            It may have been deleted from this browser.
+          </p>
           <Button asChild className="mt-6">
             <Link to="/research">Back to research</Link>
           </Button>
@@ -133,20 +178,31 @@ function Notebook({ project }: { project: ResearchProject }) {
               setEditingHeader(false);
             }}
           >
-            <Input value={title} onChange={(e) => setTitle(e.target.value)} className="font-display text-lg font-bold" />
+            <Input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="font-display text-lg font-bold"
+            />
             <Textarea value={topic} onChange={(e) => setTopic(e.target.value)} rows={2} />
             <div className="flex gap-2">
               <Button size="sm" type="submit">
                 Save
               </Button>
-              <Button size="sm" variant="ghost" type="button" onClick={() => setEditingHeader(false)}>
+              <Button
+                size="sm"
+                variant="ghost"
+                type="button"
+                onClick={() => setEditingHeader(false)}
+              >
                 Cancel
               </Button>
             </div>
           </form>
         ) : (
           <div className="space-y-1">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-primary">Research notebook</p>
+            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-primary">
+              Research notebook
+            </p>
             <h1 className="text-3xl font-bold md:text-4xl">{project.title}</h1>
             <p className="max-w-2xl text-muted-foreground">{project.topic}</p>
           </div>
@@ -158,7 +214,11 @@ function Notebook({ project }: { project: ResearchProject }) {
             </Button>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-destructive hover:text-destructive"
+                >
                   <Trash2 /> Delete
                 </Button>
               </AlertDialogTrigger>
@@ -166,7 +226,8 @@ function Notebook({ project }: { project: ResearchProject }) {
                 <AlertDialogHeader>
                   <AlertDialogTitle>Delete this project?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    “{project.title}” and its {project.notes.length} notes will be removed from this browser.
+                    “{project.title}” and its {project.notes.length} notes will be removed from this
+                    browser.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -220,7 +281,9 @@ function AssistantPanel({ project }: { project: ResearchProject }) {
           mode: tool,
           input,
           context:
-            input === project.topic ? undefined : `This is part of a research project on: ${project.topic}`,
+            input === project.topic
+              ? undefined
+              : `This is part of a research project on: ${project.topic}`,
         },
         setText,
         controller.signal,
@@ -303,7 +366,12 @@ function AssistantPanel({ project }: { project: ResearchProject }) {
             Only the text above and your topic are sent to the AI.
           </span>
           {loading ? (
-            <Button type="button" variant="outline" size="sm" onClick={() => abortRef.current?.abort()}>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => abortRef.current?.abort()}
+            >
               <Square /> Stop
             </Button>
           ) : (
@@ -326,7 +394,12 @@ function AssistantPanel({ project }: { project: ResearchProject }) {
                   <Button variant="ghost" size="xs" onClick={() => void run()}>
                     Regenerate
                   </Button>
-                  <Button variant={saved ? "ghost" : "secondary"} size="xs" onClick={save} disabled={saved}>
+                  <Button
+                    variant={saved ? "ghost" : "secondary"}
+                    size="xs"
+                    onClick={save}
+                    disabled={saved}
+                  >
                     {saved ? <Check /> : <Bookmark />}
                     {saved ? "Saved" : "Save to notes"}
                   </Button>
@@ -386,8 +459,18 @@ function NotesPanel({ project }: { project: ResearchProject }) {
             setDraftOpen(false);
           }}
         >
-          <Input value={draftTitle} onChange={(e) => setDraftTitle(e.target.value)} placeholder="Title" autoFocus />
-          <Textarea value={draftBody} onChange={(e) => setDraftBody(e.target.value)} placeholder="Your note (markdown works)" rows={4} />
+          <Input
+            value={draftTitle}
+            onChange={(e) => setDraftTitle(e.target.value)}
+            placeholder="Title"
+            autoFocus
+          />
+          <Textarea
+            value={draftBody}
+            onChange={(e) => setDraftBody(e.target.value)}
+            placeholder="Your note (markdown works)"
+            rows={4}
+          />
           <div className="flex justify-end gap-2">
             <Button type="button" size="sm" variant="ghost" onClick={() => setDraftOpen(false)}>
               Cancel
@@ -401,14 +484,20 @@ function NotesPanel({ project }: { project: ResearchProject }) {
 
       {unverified > 0 && (
         <VerifyNotice>
-          {unverified} AI note{unverified > 1 ? "s" : ""} not yet verified. Check them against trusted sources, then mark as verified.
+          {unverified} AI note{unverified > 1 ? "s" : ""} not yet verified. Check them against
+          trusted sources, then mark as verified.
         </VerifyNotice>
       )}
 
       <div className="flex flex-col gap-2 sm:flex-row">
         <div className="relative flex-1">
           <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search notes" className="pl-8" />
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search notes"
+            className="pl-8"
+          />
         </div>
         <div className="flex gap-1 rounded-lg bg-muted p-1">
           {(["all", "mine", "ai", "unverified"] as const).map((f) => (
@@ -418,7 +507,9 @@ function NotesPanel({ project }: { project: ResearchProject }) {
               onClick={() => setFilter(f)}
               className={cn(
                 "rounded-md px-2.5 py-1 text-xs font-medium capitalize transition-colors",
-                filter === f ? "bg-card text-foreground shadow-soft" : "text-muted-foreground hover:text-foreground",
+                filter === f
+                  ? "bg-card text-foreground shadow-soft"
+                  : "text-muted-foreground hover:text-foreground",
               )}
             >
               {f === "ai" ? "AI" : f}
@@ -430,7 +521,9 @@ function NotesPanel({ project }: { project: ResearchProject }) {
       <div className="space-y-3">
         {notes.length === 0 ? (
           <p className="rounded-xl border border-dashed px-4 py-8 text-center text-sm text-muted-foreground">
-            {project.notes.length === 0 ? "Save AI results or add your own notes here." : "No notes match."}
+            {project.notes.length === 0
+              ? "Save AI results or add your own notes here."
+              : "No notes match."}
           </p>
         ) : (
           notes.map((n) => <NoteCard key={n.id} projectId={project.id} note={n} />)
@@ -518,7 +611,12 @@ function NoteCard({ projectId, note }: { projectId: string; note: ResearchNote }
               <Pencil />
             </Button>
           )}
-          <Button size="icon-xs" variant="ghost" aria-label="Delete note" onClick={() => deleteNote(projectId, note.id)}>
+          <Button
+            size="icon-xs"
+            variant="ghost"
+            aria-label="Delete note"
+            onClick={() => deleteNote(projectId, note.id)}
+          >
             <Trash2 />
           </Button>
         </div>

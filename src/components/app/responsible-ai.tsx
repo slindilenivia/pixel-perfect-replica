@@ -80,7 +80,13 @@ export function AiBadge({ className }: { className?: string }) {
   );
 }
 
-export function VerifyNotice({ className, children }: { className?: string; children?: ReactNode }) {
+export function VerifyNotice({
+  className,
+  children,
+}: {
+  className?: string;
+  children?: ReactNode;
+}) {
   return (
     <div
       className={cn(

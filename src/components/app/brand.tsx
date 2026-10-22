@@ -9,7 +9,13 @@ export function BrandMark({ className }: { className?: string }) {
         className,
       )}
     >
-      <img src={logo} alt="Kestrel" width={816} height={816} className="size-full scale-125 object-cover" />
+      <img
+        src={logo}
+        alt="Kestrel"
+        width={816}
+        height={816}
+        className="size-full scale-125 object-cover"
+      />
     </span>
   );
 }

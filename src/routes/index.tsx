@@ -37,7 +37,8 @@ export const Route = createFileRoute("/")({
       { title: "Kestrel — Your AI Productivity Dashboard" },
       {
         name: "description",
-        content: "One dashboard for today's tasks, deadlines, research projects and AI conversations.",
+        content:
+          "One dashboard for today's tasks, deadlines, research projects and AI conversations.",
       },
       { property: "og:title", content: "Kestrel — Your AI Productivity Dashboard" },
       {
@@ -85,7 +86,9 @@ function Dashboard() {
   const navigate = useNavigate();
   const [ask, setAsk] = useState("");
 
-  const today = sortTasks(tasks.filter((t) => isDueToday(t) || (isOverdue(t) && t.status !== "done")));
+  const today = sortTasks(
+    tasks.filter((t) => isDueToday(t) || (isOverdue(t) && t.status !== "done")),
+  );
   const todayDone = today.filter((t) => t.status === "done").length;
   const upcoming = upcomingTasks(tasks, 14).slice(0, 5);
   const week = completionsByDay(tasks);
@@ -139,7 +142,11 @@ function Dashboard() {
             <div className="grid grid-cols-3 gap-2">
               <Stat label="Due today" value={hydrated ? today.length - todayDone : "–"} />
               <Stat label="Done this week" value={hydrated ? weekTotal : "–"} />
-              <Stat label="Overdue" value={hydrated ? overdue : "–"} warn={hydrated && overdue > 0} />
+              <Stat
+                label="Overdue"
+                value={hydrated ? overdue : "–"}
+                warn={hydrated && overdue > 0}
+              />
             </div>
           </div>
         </section>
@@ -208,14 +215,18 @@ function Dashboard() {
                     </p>
                   </div>
                   <p className="text-right text-xs text-muted-foreground">
-                    <span className="font-display text-lg font-bold text-foreground">{weekTotal}</span>
+                    <span className="font-display text-lg font-bold text-foreground">
+                      {weekTotal}
+                    </span>
                     <br />
                     last 7 days
                   </p>
                 </div>
                 <div className="h-28">
                   <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={week.map((d) => ({ ...d, label: format(parseISO(d.day), "EEEEE") }))}>
+                    <BarChart
+                      data={week.map((d) => ({ ...d, label: format(parseISO(d.day), "EEEEE") }))}
+                    >
                       <XAxis
                         dataKey="label"
                         axisLine={false}
@@ -243,7 +254,10 @@ function Dashboard() {
           </Panel>
 
           {/* Upcoming */}
-          <Panel title="Upcoming deadlines" action={<CalendarClock className="size-4 text-muted-foreground" />}>
+          <Panel
+            title="Upcoming deadlines"
+            action={<CalendarClock className="size-4 text-muted-foreground" />}
+          >
             {!hydrated ? (
               <ListSkeleton />
             ) : upcoming.length === 0 ? (
@@ -251,7 +265,10 @@ function Dashboard() {
             ) : (
               <ul className="space-y-2">
                 {upcoming.map((t) => (
-                  <li key={t.id} className="flex items-center gap-3 rounded-lg border bg-background px-3 py-2">
+                  <li
+                    key={t.id}
+                    className="flex items-center gap-3 rounded-lg border bg-background px-3 py-2"
+                  >
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-medium">{t.title}</p>
                       <DueLabel task={t} />
@@ -264,7 +281,10 @@ function Dashboard() {
           </Panel>
 
           {/* Research */}
-          <Panel title="Research projects" action={<PanelLink to="/research">All projects</PanelLink>}>
+          <Panel
+            title="Research projects"
+            action={<PanelLink to="/research">All projects</PanelLink>}
+          >
             {!hydrated ? (
               <ListSkeleton />
             ) : research.length === 0 ? (
@@ -280,7 +300,8 @@ function Dashboard() {
                     >
                       <p className="truncate text-sm font-medium">{p.title}</p>
                       <p className="text-xs text-muted-foreground">
-                        {p.notes.length} notes · updated {formatDistanceToNow(new Date(p.updatedAt), { addSuffix: true })}
+                        {p.notes.length} notes · updated{" "}
+                        {formatDistanceToNow(new Date(p.updatedAt), { addSuffix: true })}
                       </p>
                     </Link>
                   </li>
@@ -344,7 +365,9 @@ function Panel({
   className?: string;
 }) {
   return (
-    <section className={cn("flex flex-col rounded-2xl border bg-card p-4 shadow-soft md:p-5", className)}>
+    <section
+      className={cn("flex flex-col rounded-2xl border bg-card p-4 shadow-soft md:p-5", className)}
+    >
       <div className="mb-3 flex items-center justify-between gap-2">
         <h2 className="text-base font-bold">{title}</h2>
         {action}
@@ -354,9 +377,18 @@ function Panel({
   );
 }
 
-function PanelLink({ to, children }: { to: "/tasks" | "/research" | "/chat"; children: React.ReactNode }) {
+function PanelLink({
+  to,
+  children,
+}: {
+  to: "/tasks" | "/research" | "/chat";
+  children: React.ReactNode;
+}) {
   return (
-    <Link to={to} className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline">
+    <Link
+      to={to}
+      className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+    >
       {children} <ArrowRight className="size-3" />
     </Link>
   );

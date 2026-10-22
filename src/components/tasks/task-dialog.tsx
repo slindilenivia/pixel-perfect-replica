@@ -11,8 +11,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { addTask, updateTask, useTasks, type Priority, type Task, type TaskStatus } from "@/lib/tasks";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  addTask,
+  updateTask,
+  useTasks,
+  type Priority,
+  type Task,
+  type TaskStatus,
+} from "@/lib/tasks";
 
 export function TaskDialog({
   open,
@@ -63,7 +76,11 @@ export function TaskDialog({
         completedAt: status === "done" ? (task.completedAt ?? new Date().toISOString()) : null,
       });
     } else {
-      addTask({ ...data, status, completedAt: status === "done" ? new Date().toISOString() : null });
+      addTask({
+        ...data,
+        status,
+        completedAt: status === "done" ? new Date().toISOString() : null,
+      });
     }
     onOpenChange(false);
   }
@@ -72,7 +89,9 @@ export function TaskDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle className="font-display text-xl">{task ? "Edit task" : "New task"}</DialogTitle>
+          <DialogTitle className="font-display text-xl">
+            {task ? "Edit task" : "New task"}
+          </DialogTitle>
         </DialogHeader>
         <form onSubmit={save} className="space-y-4">
           <div className="space-y-1.5">
@@ -101,7 +120,12 @@ export function TaskDialog({
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="task-due">Deadline</Label>
-              <Input id="task-due" type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+              <Input
+                id="task-due"
+                type="date"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+              />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">

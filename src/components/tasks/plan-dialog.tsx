@@ -57,7 +57,9 @@ export function PlanDialog({ kind, onClose }: { kind: PlanKind | null; onClose: 
           <DialogTitle className="font-display text-xl">
             {kind === "weekly-plan" ? "Your week, planned" : "Your day, planned"}
           </DialogTitle>
-          <DialogDescription>Built from your open tasks, priorities and deadlines.</DialogDescription>
+          <DialogDescription>
+            Built from your open tasks, priorities and deadlines.
+          </DialogDescription>
         </DialogHeader>
         <AiOutput
           text={text}

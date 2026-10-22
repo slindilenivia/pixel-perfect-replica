@@ -1,5 +1,13 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { BookOpenText, LayoutDashboard, ListChecks, MessagesSquare, Moon, ShieldCheck, Sun } from "lucide-react";
+import {
+  BookOpenText,
+  LayoutDashboard,
+  ListChecks,
+  MessagesSquare,
+  Moon,
+  ShieldCheck,
+  Sun,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -37,7 +45,11 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
-        <Link to="/" className="flex items-center gap-2.5 px-1 py-1.5" onClick={() => setOpenMobile(false)}>
+        <Link
+          to="/"
+          className="flex items-center gap-2.5 px-1 py-1.5"
+          onClick={() => setOpenMobile(false)}
+        >
           <BrandMark className="size-8" />
           <div className="flex flex-col leading-none group-data-[collapsible=icon]:hidden">
             <span className="font-display text-lg font-bold tracking-tight">Kestrel</span>
@@ -60,7 +72,9 @@ export function AppSidebar() {
                         <span>{item.label}</span>
                       </Link>
                     </SidebarMenuButton>
-                    {item.to === "/tasks" && todayOpen > 0 && <SidebarMenuBadge>{todayOpen}</SidebarMenuBadge>}
+                    {item.to === "/tasks" && todayOpen > 0 && (
+                      <SidebarMenuBadge>{todayOpen}</SidebarMenuBadge>
+                    )}
                   </SidebarMenuItem>
                 );
               })}

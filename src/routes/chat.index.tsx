@@ -8,9 +8,16 @@ export const Route = createFileRoute("/chat/")({
   head: () => ({
     meta: [
       { title: "AI Chat — Kestrel" },
-      { name: "description", content: "Chat with Kestrel's AI assistant about planning, research, writing and productivity." },
+      {
+        name: "description",
+        content:
+          "Chat with Kestrel's AI assistant about planning, research, writing and productivity.",
+      },
       { property: "og:title", content: "AI Chat — Kestrel" },
-      { property: "og:description", content: "Chat with an AI assistant for planning, research, writing and productivity." },
+      {
+        property: "og:description",
+        content: "Chat with an AI assistant for planning, research, writing and productivity.",
+      },
     ],
   }),
   component: ChatIndex,

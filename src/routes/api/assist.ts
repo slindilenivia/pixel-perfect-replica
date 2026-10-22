@@ -22,7 +22,8 @@ async function handleAssist(request: Request) {
   } catch {
     return Response.json({ error: "Invalid request body" }, { status: 400 });
   }
-  if (!parsed.success) return Response.json({ error: "Please enter some text first." }, { status: 400 });
+  if (!parsed.success)
+    return Response.json({ error: "Please enter some text first." }, { status: 400 });
   const { mode, input, context } = parsed.data;
 
   const { model } = createGateway(request);
@@ -54,7 +55,11 @@ async function handleAssist(request: Request) {
     const { status, message } = describeAiError(error);
     return Response.json({ error: message }, { status });
   }
-  if (!first) return Response.json({ error: "The AI returned an empty answer. Try rephrasing." }, { status: 502 });
+  if (!first)
+    return Response.json(
+      { error: "The AI returned an empty answer. Try rephrasing." },
+      { status: 502 },
+    );
 
   const encoder = new TextEncoder();
   const body = new ReadableStream<Uint8Array>({

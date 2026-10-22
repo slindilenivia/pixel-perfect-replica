@@ -37,7 +37,8 @@ export function saveThread(id: string, messages: UIMessage[]) {
     const existing = prev.find((t) => t.id === id);
     const thread: ChatThread = {
       id,
-      title: existing && existing.title !== "New conversation" ? existing.title : titleFrom(messages),
+      title:
+        existing && existing.title !== "New conversation" ? existing.title : titleFrom(messages),
       updatedAt: new Date().toISOString(),
       messages,
     };

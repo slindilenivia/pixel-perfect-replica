@@ -34,13 +34,33 @@ function seedTasks(): Task[] {
     completedAt: null,
     ...t,
   });
-  const launch = base({ title: "Launch portfolio website", priority: "high", dueDate: offsetKey(6) });
+  const launch = base({
+    title: "Launch portfolio website",
+    priority: "high",
+    dueDate: offsetKey(6),
+  });
   return [
     launch,
-    base({ title: "Write the About page", parentId: launch.id, dueDate: offsetKey(2), status: "done", completedAt: now }),
+    base({
+      title: "Write the About page",
+      parentId: launch.id,
+      dueDate: offsetKey(2),
+      status: "done",
+      completedAt: now,
+    }),
     base({ title: "Pick 5 best projects to feature", parentId: launch.id, dueDate: offsetKey(3) }),
-    base({ title: "Set up a custom domain", parentId: launch.id, dueDate: offsetKey(5), priority: "low" }),
-    base({ title: "Review quarterly budget", priority: "high", dueDate: todayKey(), status: "in_progress" }),
+    base({
+      title: "Set up a custom domain",
+      parentId: launch.id,
+      dueDate: offsetKey(5),
+      priority: "low",
+    }),
+    base({
+      title: "Review quarterly budget",
+      priority: "high",
+      dueDate: todayKey(),
+      status: "in_progress",
+    }),
     base({ title: "Reply to client emails", dueDate: todayKey() }),
     base({ title: "30-minute reading session", priority: "low", dueDate: todayKey() }),
     base({ title: "Prepare slides for Monday meeting", priority: "medium", dueDate: offsetKey(3) }),
@@ -152,7 +172,8 @@ export function completionsByDay(tasks: Task[], now = new Date()) {
   const days = Array.from({ length: 7 }, (_, i) => toDateKey(addDays(now, i - 6)));
   return days.map((day) => ({
     day,
-    completed: tasks.filter((t) => t.completedAt && toDateKey(new Date(t.completedAt)) === day).length,
+    completed: tasks.filter((t) => t.completedAt && toDateKey(new Date(t.completedAt)) === day)
+      .length,
   }));
 }
 

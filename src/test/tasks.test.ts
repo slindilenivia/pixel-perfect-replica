@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest";
 
-import { completionsByDay, isOverdue, progressOf, sortTasks, upcomingTasks, type Task } from "@/lib/tasks";
+import {
+  completionsByDay,
+  isOverdue,
+  progressOf,
+  sortTasks,
+  upcomingTasks,
+  type Task,
+} from "@/lib/tasks";
 
 const NOW = new Date(2026, 9, 22, 10, 0, 0); // 22 Oct 2026, local time
 
