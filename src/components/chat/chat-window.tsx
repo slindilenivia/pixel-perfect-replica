@@ -99,12 +99,16 @@ export function ChatWindow({
     saveThread(threadId, messages);
   }, [busy, messages, threadId]);
 
-  // A prompt handed over from the dashboard (?q=…) is sent once.
+  // A prompt handed over from the dashboard (?q=…) is sent once. Deferred a tick so
+  // React StrictMode's mount/unmount cycle (which stops in-flight chats) can't cancel it.
   useEffect(() => {
     if (sentInitial.current || !initialPrompt) return;
-    sentInitial.current = true;
-    if (initialMessages.length === 0) void sendMessage({ text: initialPrompt });
-    void navigate({ to: "/chat/$threadId", params: { threadId }, search: {}, replace: true });
+    const timer = setTimeout(() => {
+      sentInitial.current = true;
+      if (initialMessages.length === 0) void sendMessage({ text: initialPrompt });
+      void navigate({ to: "/chat/$threadId", params: { threadId }, search: {}, replace: true });
+    }, 0);
+    return () => clearTimeout(timer);
   }, [initialPrompt, initialMessages.length, navigate, sendMessage, threadId]);
 
   useEffect(() => {
