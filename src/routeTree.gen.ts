@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TasksRouteImport } from './routes/tasks'
+import { Route as ApiAssistRouteImport } from './routes/api/assist'
+import { Route as ApiBreakdownRouteImport } from './routes/api/breakdown'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as ChatIndexRouteImport } from './routes/chat.index'
+import { Route as ChatThreadIdRouteImport } from './routes/chat.$threadId'
+import { Route as ResearchIndexRouteImport } from './routes/research.index'
+import { Route as ResearchProjectIdRouteImport } from './routes/research.$projectId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TasksRoute = TasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAssistRoute = ApiAssistRouteImport.update({
+  id: '/api/assist',
+  path: '/api/assist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBreakdownRoute = ApiBreakdownRouteImport.update({
+  id: '/api/breakdown',
+  path: '/api/breakdown',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatIndexRoute = ChatIndexRouteImport.update({
+  id: '/chat/',
+  path: '/chat/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatThreadIdRoute = ChatThreadIdRouteImport.update({
+  id: '/chat/$threadId',
+  path: '/chat/$threadId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchIndexRoute = ResearchIndexRouteImport.update({
+  id: '/research/',
+  path: '/research/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchProjectIdRoute = ResearchProjectIdRouteImport.update({
+  id: '/research/$projectId',
+  path: '/research/$projectId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/tasks': typeof TasksRoute
+  '/api/assist': typeof ApiAssistRoute
+  '/api/breakdown': typeof ApiBreakdownRoute
+  '/api/chat': typeof ApiChatRoute
+  '/chat/$threadId': typeof ChatThreadIdRoute
+  '/research/$projectId': typeof ResearchProjectIdRoute
+  '/chat/': typeof ChatIndexRoute
+  '/research/': typeof ResearchIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/tasks': typeof TasksRoute
+  '/api/assist': typeof ApiAssistRoute
+  '/api/breakdown': typeof ApiBreakdownRoute
+  '/api/chat': typeof ApiChatRoute
+  '/chat/$threadId': typeof ChatThreadIdRoute
+  '/research/$projectId': typeof ResearchProjectIdRoute
+  '/chat': typeof ChatIndexRoute
+  '/research': typeof ResearchIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/tasks': typeof TasksRoute
+  '/api/assist': typeof ApiAssistRoute
+  '/api/breakdown': typeof ApiBreakdownRoute
+  '/api/chat': typeof ApiChatRoute
+  '/chat/$threadId': typeof ChatThreadIdRoute
+  '/research/$projectId': typeof ResearchProjectIdRoute
+  '/chat/': typeof ChatIndexRoute
+  '/research/': typeof ResearchIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/tasks'
+    | '/api/assist'
+    | '/api/breakdown'
+    | '/api/chat'
+    | '/chat/$threadId'
+    | '/research/$projectId'
+    | '/chat/'
+    | '/research/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/tasks'
+    | '/api/assist'
+    | '/api/breakdown'
+    | '/api/chat'
+    | '/chat/$threadId'
+    | '/research/$projectId'
+    | '/chat'
+    | '/research'
+  id:
+    | '__root__'
+    | '/'
+    | '/tasks'
+    | '/api/assist'
+    | '/api/breakdown'
+    | '/api/chat'
+    | '/chat/$threadId'
+    | '/research/$projectId'
+    | '/chat/'
+    | '/research/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  TasksRoute: typeof TasksRoute
+  ApiAssistRoute: typeof ApiAssistRoute
+  ApiBreakdownRoute: typeof ApiBreakdownRoute
+  ApiChatRoute: typeof ApiChatRoute
+  ChatThreadIdRoute: typeof ChatThreadIdRoute
+  ResearchProjectIdRoute: typeof ResearchProjectIdRoute
+  ChatIndexRoute: typeof ChatIndexRoute
+  ResearchIndexRoute: typeof ResearchIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tasks': {
+      id: '/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof TasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/assist': {
+      id: '/api/assist'
+      path: '/api/assist'
+      fullPath: '/api/assist'
+      preLoaderRoute: typeof ApiAssistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/breakdown': {
+      id: '/api/breakdown'
+      path: '/api/breakdown'
+      fullPath: '/api/breakdown'
+      preLoaderRoute: typeof ApiBreakdownRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat/': {
+      id: '/chat/'
+      path: '/chat'
+      fullPath: '/chat/'
+      preLoaderRoute: typeof ChatIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat/$threadId': {
+      id: '/chat/$threadId'
+      path: '/chat/$threadId'
+      fullPath: '/chat/$threadId'
+      preLoaderRoute: typeof ChatThreadIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research/': {
+      id: '/research/'
+      path: '/research'
+      fullPath: '/research/'
+      preLoaderRoute: typeof ResearchIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research/$projectId': {
+      id: '/research/$projectId'
+      path: '/research/$projectId'
+      fullPath: '/research/$projectId'
+      preLoaderRoute: typeof ResearchProjectIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  TasksRoute: TasksRoute,
+  ApiAssistRoute: ApiAssistRoute,
+  ApiBreakdownRoute: ApiBreakdownRoute,
+  ApiChatRoute: ApiChatRoute,
+  ChatThreadIdRoute: ChatThreadIdRoute,
+  ResearchProjectIdRoute: ResearchProjectIdRoute,
+  ChatIndexRoute: ChatIndexRoute,
+  ResearchIndexRoute: ResearchIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
