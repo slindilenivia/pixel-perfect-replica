@@ -57,7 +57,7 @@ function textOf(message: UIMessage) {
   return message.parts.map((p) => (p.type === "text" ? p.text : "")).join("");
 }
 
-export function ChatWindow({ threadId, initialPrompt }: { threadId: string; initialPrompt?: string }) {
+export function ChatWindow({ threadId, initialPrompt }: { threadId: string; initialPrompt?: string | undefined }) {
   const navigate = useNavigate();
   const initialMessages = useMemo(
     () => chatStore.read().find((t) => t.id === threadId)?.messages ?? [],
@@ -115,7 +115,7 @@ export function ChatWindow({ threadId, initialPrompt }: { threadId: string; init
     void sendMessage({ text: prompt });
   }
 
-  const lastAssistantIndex = messages.findLastIndex((m) => m.role === "assistant");
+  const lastAssistantIndex = messages.reduce((last, m, i) => (m.role === "assistant" ? i : last), -1);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">

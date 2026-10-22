@@ -11,7 +11,7 @@ async function readError(res: Response) {
 
 /** Streams text from the assist endpoint, calling onText with the full text so far. */
 export async function streamAssist(
-  params: { mode: AssistMode; input: string; context?: string },
+  params: { mode: AssistMode; input: string; context?: string | undefined },
   onText: (text: string) => void,
   signal?: AbortSignal,
 ) {
@@ -19,7 +19,7 @@ export async function streamAssist(
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(params),
-    signal,
+    signal: signal ?? null,
   });
   if (!res.ok || !res.body) throw new Error(await readError(res));
   const reader = res.body.getReader();
@@ -45,7 +45,7 @@ export async function breakdownGoal(goal: string, deadline: string | null, signa
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ goal, deadline }),
-    signal,
+    signal: signal ?? null,
   });
   if (!res.ok) throw new Error(await readError(res));
   const data = (await res.json()) as { subtasks: SuggestedSubtask[] };

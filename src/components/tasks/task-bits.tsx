@@ -57,7 +57,7 @@ export function TaskRow({
   compact,
 }: {
   task: Task;
-  progress?: number;
+  progress?: number | undefined;
   subtaskCount?: number;
   expanded?: boolean;
   onToggleExpand?: () => void;
